@@ -2,11 +2,22 @@ import requests
 import time
 from datetime import datetime
 from bs4 import BeautifulSoup
+from environs import Env
 import pymysql.cursors
 
 
-connection = pymysql.connect(host='192.168.33.50', port=3306, database='changjiang', user='root',
-          password='root', charset='utf8')
+env = Env()
+env.read_env()
+db_host = env.str('DB_HOST')
+db_port = env.int('DB_PORT')
+db_user = env.str('DB_USER')
+db_pawd = env.str('DB_PASSWORD')
+db_name = env.str('DB_NAME')
+
+print(db_name)
+
+connection = pymysql.connect(host=db_host, port=db_port, database=db_name, user=db_user,
+          password=db_pawd, charset='utf8')
 
 
 url = "https://www.cjhdj.com.cn/hdfw/sw/"
@@ -234,7 +245,7 @@ for i in range(len(ls)-1, -1, -1):
 	print('-------------------------------------------')
 
 
-print('=======================================================================================================')
+print('============================================================================================')
 # print(uls)
 
 # body > div.xl_con > div.xl_con1 > div > table > tbody
