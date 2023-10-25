@@ -1,5 +1,6 @@
 import requests
 import time
+import json
 from datetime import datetime
 from bs4 import BeautifulSoup
 from environs import Env
@@ -48,7 +49,51 @@ sql = "insert into shuiwei(time, yibing, jiangan, luzhou, zhutuo, jiangjin, chon
 
 # print(url)
 
-web_data = requests.get(url)
+
+#API链接    后台获取链接地址
+proxyAPI = "http://15623057227.user.xiecaiyun.com/api/proxies?action=getJSON&key=NPE57CDC42&count=1&word=&rand=true&norepeat=false&detail=true&ltime=&idshow=true"
+proxyusernm = "15623057227"        #代理帐号
+proxypasswd = "15623057227"        #代理密码
+# url='https://2023.ip138.com/'
+
+
+proxyurl = "http://127.0.0.1:8990"
+#获取IP
+r = requests.get(proxyAPI)
+if(r.status_code == 200):
+    print(r.text)
+
+    j = json.loads(r.text)
+    if(j["success"] and len(j["result"]) > 0):
+        p=j["result"][0]
+        #name = input();
+
+        proxyurl="http://"+proxyusernm+":"+proxypasswd+"@"+p["ip"]+":"+"%d"%p["port"]
+
+        # t1 = time.time()
+        # r = requests.get(url,proxies={'http':proxyurl,'https':proxyurl},headers={
+        #     "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+        #     "Accept-Encoding":"gzip, deflate",
+        #     "Accept-Language":"zh-CN,zh;q=0.9",
+        #     "Cache-Control":"max-age=0",
+        #     "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"})
+        # r.encoding='utf-8'
+
+        # t2 = time.time()
+
+        # print(r.text)
+        # print("时间差:" , (t2 - t1));
+    else:
+        print('获取0个代理IP')
+else:
+    print('获取代理失败')
+
+print(proxyurl)
+proxies = {
+  'http': proxyurl,
+}
+
+web_data = requests.get(url, proxies=proxies)
 web_data.encoding = 'utf-8'
 print(web_data.text)
 
@@ -92,7 +137,7 @@ for i in range(len(ls)-1, -1, -1):
 		print(sub_url)
 
 		#请求该日期的子页面数据
-		sub_data = requests.get(sub_url)
+		sub_data = requests.get(sub_url, proxies=proxies)
 		sub_data.encoding = 'utf-8'
 
 
