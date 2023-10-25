@@ -50,7 +50,7 @@ sql = "insert into shuiwei(time, yibing, jiangan, luzhou, zhutuo, jiangjin, chon
 
 web_data = requests.get(url)
 web_data.encoding = 'utf-8'
-# print(web_data)
+print(web_data.text)
 
 soup = BeautifulSoup(web_data.text, 'lxml')
 # print(soup.select('.gl_list1'))
