@@ -70,19 +70,19 @@ if(r.status_code == 200):
 
         proxyurl="http://"+proxyusernm+":"+proxypasswd+"@"+p["ip"]+":"+"%d"%p["port"]
 
-        # t1 = time.time()
-        # r = requests.get(url,proxies={'http':proxyurl,'https':proxyurl},headers={
-        #     "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-        #     "Accept-Encoding":"gzip, deflate",
-        #     "Accept-Language":"zh-CN,zh;q=0.9",
-        #     "Cache-Control":"max-age=0",
-        #     "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"})
-        # r.encoding='utf-8'
+        t1 = time.time()
+        r = requests.get('https://2023.ip138.com/', proxies={'http':proxyurl,'https':proxyurl},headers={
+            "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+            "Accept-Encoding":"gzip, deflate",
+            "Accept-Language":"zh-CN,zh;q=0.9",
+            "Cache-Control":"max-age=0",
+            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"})
+        r.encoding='utf-8'
 
-        # t2 = time.time()
+        t2 = time.time()
 
-        # print(r.text)
-        # print("时间差:" , (t2 - t1));
+        print(r.text)
+        print("时间差:" , (t2 - t1));
     else:
         print('获取0个代理IP')
 else:
@@ -103,7 +103,7 @@ headers = {
 
 web_data = requests.get(url, proxies=proxies, headers=headers)
 web_data.encoding = 'utf-8'
-print(web_data.text)
+# print(web_data.text)
 
 soup = BeautifulSoup(web_data.text, 'lxml')
 # print(soup.select('.gl_list1'))
