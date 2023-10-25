@@ -103,6 +103,7 @@ headers = {
 
 web_data = requests.get(url, proxies=proxies, headers=headers)
 web_data.encoding = 'utf-8'
+print(web_data.status_code)
 # print(web_data.text)
 
 soup = BeautifulSoup(web_data.text, 'lxml')
