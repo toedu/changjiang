@@ -146,7 +146,7 @@ for i in range(len(ls)-1, -1, -1):
 		print(sub_url)
 
 		#请求该日期的子页面数据
-		sub_data = requests.get(sub_url)
+		sub_data = requests.get(sub_url, proxies={'http':proxyurl,'https':proxyurl})
 		sub_data.encoding = 'utf-8'
 
 
